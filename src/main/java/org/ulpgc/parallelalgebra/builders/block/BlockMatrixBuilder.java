@@ -1,4 +1,4 @@
-package org.ulpgc.parallelalgebra.builders.dense;
+package org.ulpgc.parallelalgebra.builders.block;
 
 import org.ulpgc.parallelalgebra.builders.MatrixBuilder;
 import org.ulpgc.parallelalgebra.matrix.block.BlockMatrix;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BlockMatrixBuilder<Type> implements MatrixBuilder<Type> {
-    private Map<Coordinate, DenseMatrix<Type>> matrixMap;
+    private final Map<Coordinate, DenseMatrix<Type>> matrixMap;
     private final int size;
 
     public BlockMatrixBuilder(int size) {
@@ -24,6 +24,6 @@ public class BlockMatrixBuilder<Type> implements MatrixBuilder<Type> {
 
     @Override
     public BlockMatrix<Type> get() {
-        return new BlockMatrix<Type>(size, matrixMap);
+        return new BlockMatrix<>(size, matrixMap);
     }
 }
