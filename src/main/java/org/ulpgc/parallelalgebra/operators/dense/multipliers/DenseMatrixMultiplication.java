@@ -1,4 +1,4 @@
-package org.ulpgc.parallelalgebra.operators.dense;
+package org.ulpgc.parallelalgebra.operators.dense.multipliers;
 
 import org.ulpgc.parallelalgebra.operators.MatrixMultiplication;
 
