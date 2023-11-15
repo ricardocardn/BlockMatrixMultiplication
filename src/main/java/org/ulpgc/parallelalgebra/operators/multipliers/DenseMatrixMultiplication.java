@@ -11,7 +11,7 @@ public class DenseMatrixMultiplication<Type> implements MatrixMultiplication<Typ
     private final MatrixTransformer<Type> transformer = new Transform2DenseMatrix<>();
 
     @Override
-    public DenseMatrix<Type> multiply(Matrix<Type> A, Matrix<Type> B) {
+    public DenseMatrix<Type> multiply(Matrix A, Matrix B) {
         DenseMatrix<Type> matrixA = (DenseMatrix<Type>) transformer.execute(A);
         DenseMatrix<Type> matrixB = (DenseMatrix<Type>) transformer.execute(A);
 

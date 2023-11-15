@@ -9,15 +9,15 @@ import org.ulpgc.parallelalgebra.operators.MatrixTransformer;
 
 public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
     @Override
-    public DenseMatrix<Type> execute(Matrix<Type> matrix) {
+    public DenseMatrix<Type> execute(Matrix matrix) {
         return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix<Type>) matrix;
     }
 
-    private boolean isOfBlocks(Matrix<Type> matrix) {
+    private boolean isOfBlocks(Matrix matrix) {
         return matrix instanceof BlockMatrix<?>;
     }
 
-    private DenseMatrix<Type> transformFromBlocks(Matrix<Type> matrix) {
+    private DenseMatrix<Type> transformFromBlocks(Matrix matrix) {
         BlockMatrix<Type> blockMatrix = (BlockMatrix<Type>) matrix;
         DenseMatrixBuilder<Type> matrixBuilder = new DenseMatrixBuilder<>(size(blockMatrix));
 

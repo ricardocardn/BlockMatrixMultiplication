@@ -6,7 +6,7 @@ import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
 
 import java.util.Map;
 
-public class BlockMatrix<Type> implements Matrix<Type> {
+public class BlockMatrix<Type> implements Matrix {
     private final int size;
     private final Map<Coordinate, DenseMatrix<Type>> matrix;
 

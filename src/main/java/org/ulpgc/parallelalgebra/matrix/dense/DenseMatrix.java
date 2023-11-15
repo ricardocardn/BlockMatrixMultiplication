@@ -2,7 +2,7 @@ package org.ulpgc.parallelalgebra.matrix.dense;
 
 import org.ulpgc.parallelalgebra.matrix.Matrix;
 
-public class DenseMatrix<Type> implements Matrix<Type> {
+public class DenseMatrix<Type> implements Matrix {
     private final int size;
     private final Type[][] matrix;
 

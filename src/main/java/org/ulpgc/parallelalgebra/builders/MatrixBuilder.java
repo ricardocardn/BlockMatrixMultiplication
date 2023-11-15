@@ -5,5 +5,5 @@ import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
 
 public interface MatrixBuilder<Type> {
     void set(Coordinate coordinate, Object value);
-    Matrix<Type> get();
+    Matrix get();
 }

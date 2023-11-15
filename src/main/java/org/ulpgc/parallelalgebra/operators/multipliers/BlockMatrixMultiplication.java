@@ -10,7 +10,7 @@ public class BlockMatrixMultiplication<Type> implements MatrixMultiplication<Typ
     private final MatrixTransformer<Type> transformer = new Transform2BlockMatrix<>();
 
     @Override
-    public BlockMatrix<Type> multiply(Matrix<Type> matrixA, Matrix<Type> matrixB) {
+    public BlockMatrix<Type> multiply(Matrix matrixA, Matrix matrixB) {
         return null;
     }
 }
