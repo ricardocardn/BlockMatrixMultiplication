@@ -32,7 +32,7 @@ public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
         for (int i = 0; i < BLOCK_SIZE; i++)
             for (int j = 0; j < BLOCK_SIZE; j++)
                 matrixBuilder.set(
-                        new Coordinate(ii + i, jj + j),
+                        new Coordinate(ii*BLOCK_SIZE + i, jj*BLOCK_SIZE + j),
                         blockMatrix.get(ii, jj).get(i, j)
                 );
     }
