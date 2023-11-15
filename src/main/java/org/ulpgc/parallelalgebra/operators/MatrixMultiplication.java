@@ -1,4 +1,7 @@
 package org.ulpgc.parallelalgebra.operators;
 
-public interface MatrixMultiplication {
+import org.ulpgc.parallelalgebra.matrix.Matrix;
+
+public interface MatrixMultiplication<Type> {
+    Matrix<Type> multiply(Matrix<Type> matrixA, Matrix<Type> matrixB);
 }

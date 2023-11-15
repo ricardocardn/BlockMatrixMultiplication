@@ -1,4 +1,7 @@
 package org.ulpgc.parallelalgebra.operators;
 
-public interface MatrixTransformer {
+import org.ulpgc.parallelalgebra.matrix.Matrix;
+
+public interface MatrixTransformer<Type> {
+    Matrix<Type> execute(Matrix<Type> matrix);
 }
