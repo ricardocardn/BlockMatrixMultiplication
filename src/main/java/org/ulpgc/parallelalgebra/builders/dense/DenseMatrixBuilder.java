@@ -11,6 +11,7 @@ public class DenseMatrixBuilder<Type> implements MatrixBuilder<Type> {
 
     public DenseMatrixBuilder(int size) {
         this.size = size;
+        matrix = (Type[][]) new Object[size][size];
     }
 
     @Override
