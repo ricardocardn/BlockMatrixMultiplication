@@ -20,10 +20,10 @@ public class Transform2BlockMatrix<Type> extends MatrixTransformer<Type> {
 
     private BlockMatrix<Type> transformFromDense(Matrix matrix) {
         DenseMatrix<Type> denseMatrix = (DenseMatrix<Type>) matrix;
-        BlockMatrixBuilder<Type> matrixBuilder = new BlockMatrixBuilder<>(denseMatrix.size());
+        BlockMatrixBuilder<Type> matrixBuilder = new BlockMatrixBuilder<>(denseMatrix.size()/BLOCK_SIZE);
 
-        for (int ii = 0; ii < denseMatrix.size(); ii = ii + BLOCK_SIZE)
-            for (int jj = 0; jj < denseMatrix.size(); jj = jj + BLOCK_SIZE)
+        for (int ii = 0; ii < denseMatrix.size()/BLOCK_SIZE; ii++)
+            for (int jj = 0; jj < denseMatrix.size()/BLOCK_SIZE; jj++)
                 matrixBuilder.set(
                         new Coordinate(ii, jj),
                         getBlock(denseMatrix, ii, jj)
@@ -38,7 +38,7 @@ public class Transform2BlockMatrix<Type> extends MatrixTransformer<Type> {
             for (int j = 0; j < BLOCK_SIZE; j++) {
                 blockBuilder.set(
                         new Coordinate(i, j),
-                        denseMatrix.get(ii + i, jj + j)
+                        denseMatrix.get(ii*BLOCK_SIZE + i, jj*BLOCK_SIZE + j)
                 );
             }
         }

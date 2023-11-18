@@ -5,6 +5,7 @@ import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
 import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class BlockMatrix<Type> implements Matrix {
     private final int size;
@@ -25,5 +26,26 @@ public class BlockMatrix<Type> implements Matrix {
         return matrix.get(
                 new Coordinate(i,j)
         );
+    }
+
+    @Override
+    public String toString() {
+        return "BlockMatrix{" +
+                "size=" + size +
+                ", matrix=" + matrix +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BlockMatrix<?> that = (BlockMatrix<?>) o;
+        return size == that.size && Objects.equals(matrix, that.matrix);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, matrix);
     }
 }

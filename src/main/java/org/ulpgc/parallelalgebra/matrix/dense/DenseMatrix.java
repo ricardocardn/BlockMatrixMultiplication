@@ -2,6 +2,9 @@ package org.ulpgc.parallelalgebra.matrix.dense;
 
 import org.ulpgc.parallelalgebra.matrix.Matrix;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class DenseMatrix<Type> implements Matrix {
     private final int size;
     private final Type[][] matrix;
@@ -20,4 +23,31 @@ public class DenseMatrix<Type> implements Matrix {
     public Type get(int i, int j) {
         return matrix[i][j];
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DenseMatrix{Size: ").append(size).append(": ");
+
+        for (Type[] row : matrix) {
+            stringBuilder.append(Arrays.toString(row)).append("; ");
+        }
+
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DenseMatrix<?> that = (DenseMatrix<?>) o;
+        return size == that.size && Arrays.deepEquals(matrix, that.matrix);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, Arrays.deepHashCode(matrix));
+    }
+
 }
