@@ -26,8 +26,4 @@ public class BlockMatrixBuilder<Type> implements MatrixBuilder<Type> {
     public BlockMatrix<Type> get() {
         return new BlockMatrix<>(size, matrixMap);
     }
-
-    public DenseMatrix<Type> get(Coordinate coordinate) {
-        return matrixMap.get(coordinate);
-    }
 }

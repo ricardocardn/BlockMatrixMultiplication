@@ -7,7 +7,7 @@ import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 import java.util.Map;
 import java.util.Objects;
 
-public class BlockMatrix<Type> implements Matrix {
+public class BlockMatrix<Type> implements Matrix<Type> {
     private final int size;
     private final Map<Coordinate, DenseMatrix<Type>> matrix;
 
@@ -28,12 +28,12 @@ public class BlockMatrix<Type> implements Matrix {
         );
     }
 
-    public void align(Coordinate coord1, Coordinate coord2) {
-        DenseMatrix<Type> denseCoord1 = matrix.get(coord1);
-        DenseMatrix<Type> denseCoord2 = matrix.get(coord2);
+    public void reAlign(Coordinate coordinate1, Coordinate coordinate2) {
+        DenseMatrix<Type> denseCoordinate1 = matrix.get(coordinate1);
+        DenseMatrix<Type> denseCoordinate2 = matrix.get(coordinate2);
 
-        matrix.put(coord1, denseCoord2);
-        matrix.put(coord2, denseCoord1);
+        matrix.put(coordinate1, denseCoordinate2);
+        matrix.put(coordinate2, denseCoordinate1);
     }
 
     @Override

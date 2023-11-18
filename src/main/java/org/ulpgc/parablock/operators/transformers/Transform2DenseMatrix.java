@@ -9,15 +9,15 @@ import org.ulpgc.parablock.operators.MatrixTransformer;
 
 public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
     @Override
-    public DenseMatrix<Type> execute(Matrix matrix) {
+    public DenseMatrix<Type> execute(Matrix<Type> matrix) {
         return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix<Type>) matrix;
     }
 
-    private boolean isOfBlocks(Matrix matrix) {
+    private boolean isOfBlocks(Matrix<Type> matrix) {
         return matrix instanceof BlockMatrix<?>;
     }
 
-    private DenseMatrix<Type> transformFromBlocks(Matrix matrix) {
+    private DenseMatrix<Type> transformFromBlocks(Matrix<Type> matrix) {
         BlockMatrix<Type> blockMatrix = (BlockMatrix<Type>) matrix;
         DenseMatrixBuilder<Type> matrixBuilder = new DenseMatrixBuilder<>(size(blockMatrix));
 
@@ -26,6 +26,10 @@ public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
                 insertSubBlock(blockMatrix, matrixBuilder, ii, jj);
 
         return matrixBuilder.get();
+    }
+
+    private int size(BlockMatrix<Type> blockMatrix) {
+        return blockMatrix.size() * BLOCK_SIZE;
     }
 
     private void insertSubBlock(BlockMatrix<Type> blockMatrix, DenseMatrixBuilder<Type> matrixBuilder, int ii, int jj) {
@@ -37,7 +41,4 @@ public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
                 );
     }
 
-    private int size(BlockMatrix<Type> blockMatrix) {
-        return blockMatrix.size() * BLOCK_SIZE;
-    }
 }

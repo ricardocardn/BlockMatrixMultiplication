@@ -10,7 +10,7 @@ public class DenseMatrixMultiplication<Type extends Number> implements MatrixMul
     private final Transform2DenseMatrix<Type> transformer = new Transform2DenseMatrix<>();
 
     @Override
-    public DenseMatrix<Type> multiply(Matrix A, Matrix B) {
+    public DenseMatrix<Type> multiply(Matrix<Type> A, Matrix<Type> B) {
         DenseMatrix<Type> matrixA = transformer.execute(A);
         DenseMatrix<Type> matrixB = transformer.execute(B);
 

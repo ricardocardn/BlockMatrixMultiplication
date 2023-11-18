@@ -12,7 +12,7 @@ public class DoubleBlockMatrixMultiplication implements MatrixMultiplication<Dou
     private final MatrixMultiplication<Double> denseMultiplier = new DenseMatrixMultiplication<>();
 
     @Override
-    public BlockMatrix<Double> multiply(Matrix A, Matrix B) throws Exception {
+    public BlockMatrix<Double> multiply(Matrix<Double> A, Matrix<Double> B) throws Exception {
         BlockMatrix<Double> matrixA = transformer.execute(A);
         BlockMatrix<Double> matrixB = transformer.execute(B);
 

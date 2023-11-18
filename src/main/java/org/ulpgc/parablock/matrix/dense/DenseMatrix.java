@@ -5,7 +5,7 @@ import org.ulpgc.parablock.matrix.Matrix;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DenseMatrix<Type> implements Matrix {
+public class DenseMatrix<Type> implements Matrix<Type> {
     private final int size;
     private final Type[][] matrix;
 
