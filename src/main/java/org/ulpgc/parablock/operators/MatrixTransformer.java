@@ -1,6 +1,6 @@
-package org.ulpgc.parallelalgebra.operators;
+package org.ulpgc.parablock.operators;
 
-import org.ulpgc.parallelalgebra.matrix.Matrix;
+import org.ulpgc.parablock.matrix.Matrix;
 
 public abstract class MatrixTransformer<Type> {
     protected final static int BLOCK_SIZE = 2;

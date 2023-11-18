@@ -1,12 +1,12 @@
-package org.ulpgc.parallelalgebra.operators.transformers;
+package org.ulpgc.parablock.operators.transformers;
 
-import org.ulpgc.parallelalgebra.builders.block.BlockMatrixBuilder;
-import org.ulpgc.parallelalgebra.builders.dense.DenseMatrixBuilder;
-import org.ulpgc.parallelalgebra.matrix.Matrix;
-import org.ulpgc.parallelalgebra.matrix.block.BlockMatrix;
-import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
-import org.ulpgc.parallelalgebra.operators.MatrixTransformer;
+import org.ulpgc.parablock.builders.block.BlockMatrixBuilder;
+import org.ulpgc.parablock.builders.dense.DenseMatrixBuilder;
+import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.matrix.block.BlockMatrix;
+import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.operators.MatrixTransformer;
 
 public class Transform2BlockMatrix<Type> extends MatrixTransformer<Type> {
     @Override

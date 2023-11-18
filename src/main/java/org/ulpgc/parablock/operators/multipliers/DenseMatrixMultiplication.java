@@ -1,12 +1,10 @@
-package org.ulpgc.parallelalgebra.operators.multipliers;
+package org.ulpgc.parablock.operators.multipliers;
 
-import org.ulpgc.parallelalgebra.builders.dense.DenseMatrixBuilder;
-import org.ulpgc.parallelalgebra.matrix.Matrix;
-import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
-import org.ulpgc.parallelalgebra.operators.MatrixMultiplication;
-import org.ulpgc.parallelalgebra.operators.transformers.Transform2DenseMatrix;
-
-import java.lang.reflect.InvocationTargetException;
+import org.ulpgc.parablock.builders.dense.DenseMatrixBuilder;
+import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.operators.MatrixMultiplication;
+import org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix;
 
 public class DenseMatrixMultiplication<Type extends Number> implements MatrixMultiplication<Type> {
     private final Transform2DenseMatrix<Type> transformer = new Transform2DenseMatrix<>();

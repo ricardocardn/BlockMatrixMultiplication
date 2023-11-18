@@ -1,4 +1,4 @@
-package org.ulpgc.parallelalgebra.matrix;
+package org.ulpgc.parablock.matrix;
 
 public interface Matrix {
     int size();

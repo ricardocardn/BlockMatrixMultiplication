@@ -1,6 +1,6 @@
-package org.ulpgc.parallelalgebra.matrix.dense;
+package org.ulpgc.parablock.matrix.dense;
 
-import org.ulpgc.parallelalgebra.matrix.Matrix;
+import org.ulpgc.parablock.matrix.Matrix;
 
 import java.util.Arrays;
 import java.util.Objects;

@@ -1,6 +1,6 @@
-package org.ulpgc.parallelalgebra.operators;
+package org.ulpgc.parablock.operators;
 
-import org.ulpgc.parallelalgebra.matrix.Matrix;
+import org.ulpgc.parablock.matrix.Matrix;
 
 public interface MatrixMultiplication<Type> {
     Matrix multiply(Matrix matrixA, Matrix matrixB) throws Exception;

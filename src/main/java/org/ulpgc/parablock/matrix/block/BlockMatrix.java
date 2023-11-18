@@ -1,8 +1,8 @@
-package org.ulpgc.parallelalgebra.matrix.block;
+package org.ulpgc.parablock.matrix.block;
 
-import org.ulpgc.parallelalgebra.matrix.Matrix;
-import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 
 import java.util.Map;
 import java.util.Objects;

@@ -1,8 +1,8 @@
-package org.ulpgc.parallelalgebra.builders.dense;
+package org.ulpgc.parablock.builders.dense;
 
-import org.ulpgc.parallelalgebra.builders.MatrixBuilder;
-import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.builders.MatrixBuilder;
+import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 
 public class DenseMatrixBuilder<Type> implements MatrixBuilder<Type> {
     private final int size;

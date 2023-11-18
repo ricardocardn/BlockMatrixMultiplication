@@ -1,11 +1,11 @@
-package org.ulpgc.parallelalgebra.operators.multipliers;
+package org.ulpgc.parablock.operators.multipliers;
 
-import org.ulpgc.parallelalgebra.builders.block.BlockMatrixBuilder;
-import org.ulpgc.parallelalgebra.matrix.Matrix;
-import org.ulpgc.parallelalgebra.matrix.block.BlockMatrix;
-import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parallelalgebra.operators.MatrixMultiplication;
-import org.ulpgc.parallelalgebra.operators.transformers.Transform2BlockMatrix;
+import org.ulpgc.parablock.builders.block.BlockMatrixBuilder;
+import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.matrix.block.BlockMatrix;
+import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.operators.MatrixMultiplication;
+import org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix;
 
 public class DoubleBlockMatrixMultiplication implements MatrixMultiplication<Double> {
     private final Transform2BlockMatrix<Double> transformer = new Transform2BlockMatrix<>();

@@ -1,9 +1,9 @@
-package org.ulpgc.parallelalgebra.builders.block;
+package org.ulpgc.parablock.builders.block;
 
-import org.ulpgc.parallelalgebra.builders.MatrixBuilder;
-import org.ulpgc.parallelalgebra.matrix.block.BlockMatrix;
-import org.ulpgc.parallelalgebra.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parallelalgebra.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.builders.MatrixBuilder;
+import org.ulpgc.parablock.matrix.block.BlockMatrix;
+import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 
 import java.util.HashMap;
 import java.util.Map;
