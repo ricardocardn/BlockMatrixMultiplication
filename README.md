@@ -68,14 +68,14 @@ Matrix multipliers are classes that perform matrix multiplication.
 `DenseMatrixMultiplication`: The DenseMatrixMultiplication class performs multiplication for dense matrices.
 
 ```java
-DenseMatrixMultiplication<Type> multiplier = new DenseMatrixMultiplication<>();
+MatrixMultiplication<Type> multiplier = new DenseMatrixMultiplication<>();
 DenseMatrix<Type> result = multiplier.multiply(matrixA, matrixB);
 ```
 
 `DoubleBlockMatrixMultiplication`: The DoubleBlockMatrixMultiplication class performs multiplication for block matrices with Double elements.
 
 ```java
-DoubleBlockMatrixMultiplication multiplier = new DoubleBlockMatrixMultiplication();
+MatrixMultiplication<Double> multiplier = new DoubleBlockMatrixMultiplication();
 BlockMatrix<Double> result = multiplier.multiply(matrixA, matrixB);
 ```
 
