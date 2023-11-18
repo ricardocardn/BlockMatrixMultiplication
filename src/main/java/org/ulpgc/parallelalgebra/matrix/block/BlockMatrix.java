@@ -28,6 +28,14 @@ public class BlockMatrix<Type> implements Matrix {
         );
     }
 
+    public void align(Coordinate coord1, Coordinate coord2) {
+        DenseMatrix<Type> denseCoord1 = matrix.get(coord1);
+        DenseMatrix<Type> denseCoord2 = matrix.get(coord2);
+
+        matrix.put(coord1, denseCoord2);
+        matrix.put(coord2, denseCoord1);
+    }
+
     @Override
     public String toString() {
         return "BlockMatrix{" +
