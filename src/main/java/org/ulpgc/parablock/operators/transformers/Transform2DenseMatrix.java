@@ -7,7 +7,7 @@ import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
 import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 
-public class Transform2DenseMatrix<Type> extends MatrixTransformer<Type> {
+public class Transform2DenseMatrix<Type extends Number> extends MatrixTransformer<Type> {
     @Override
     public DenseMatrix<Type> execute(Matrix<Type> matrix) {
         return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix<Type>) matrix;

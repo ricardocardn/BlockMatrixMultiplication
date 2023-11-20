@@ -8,7 +8,7 @@ import org.ulpgc.parablock.matrix.dense.DenseMatrix;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockMatrixBuilder<Type> implements MatrixBuilder<Type> {
+public class BlockMatrixBuilder<Type extends Number> implements MatrixBuilder<Type> {
     private final Map<Coordinate, DenseMatrix<Type>> matrixMap;
     private final int size;
 

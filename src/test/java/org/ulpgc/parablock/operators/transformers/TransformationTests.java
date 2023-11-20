@@ -17,7 +17,7 @@ public class TransformationTests {
 
     @Test
     public void testTransformEquals() {
-        Matrix blockMatrix = buildBlockMatrix();
+        Matrix<Integer> blockMatrix = buildBlockMatrix();
 
         Transform2DenseMatrix<Integer> transformer2Dense = new Transform2DenseMatrix<>();
         DenseMatrix<Integer> denseMatrix = transformer2Dense.execute(blockMatrix);
@@ -28,7 +28,7 @@ public class TransformationTests {
         assertEquals(blockMatrix, blockAfterTransform);
     }
 
-    private Matrix buildBlockMatrix() {
+    private Matrix<Integer> buildBlockMatrix() {
         int size = 4;
         int blockSize = 2;
 

@@ -5,7 +5,7 @@ import org.ulpgc.parablock.matrix.Matrix;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DenseMatrix<Type> implements Matrix<Type> {
+public class DenseMatrix<Type extends Number> implements Matrix<Type> {
     private final int size;
     private final Type[][] matrix;
 
@@ -22,6 +22,14 @@ public class DenseMatrix<Type> implements Matrix<Type> {
     @Override
     public Type get(int i, int j) {
         return matrix[i][j];
+    }
+
+    public DenseMatrix<Type> deepCopy() {
+        Type[][] copiedMatrix = Arrays.stream(matrix)
+                .map(row -> Arrays.copyOf(row, row.length))
+                .toArray(size -> Arrays.copyOf(matrix, size));
+
+        return new DenseMatrix<>(size, copiedMatrix);
     }
 
     @Override
