@@ -41,7 +41,6 @@ public class BlockMatrixMultiplication implements MatrixMultiplication {
                 matrixBuilder.set(new Coordinate(ii, jj), denseMatrix);
             }
         }
-
         return matrixBuilder.get();
     }
 }

@@ -12,17 +12,17 @@ import java.util.Random;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class TransformationTests {
-    private static int SIZE = 4;
+    private static int SIZE = 32;
     private static int BLOCK_SIZE = 2;
 
     @Test
     public void testTransformEquals() {
         Matrix blockMatrix = buildBlockMatrix();
 
-        org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix transformer2Dense = new org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix();
+        Transform2DenseMatrix transformer2Dense = new Transform2DenseMatrix();
         DenseMatrix denseMatrix = transformer2Dense.execute(blockMatrix);
 
-        org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix transform2Block = new org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix();
+        Transform2BlockMatrix transform2Block = new Transform2BlockMatrix();
         BlockMatrix blockAfterTransform = transform2Block.execute(denseMatrix);
 
         assertEquals(blockMatrix, blockAfterTransform);
@@ -31,9 +31,9 @@ public class TransformationTests {
     private Matrix buildBlockMatrix() {
         BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE/BLOCK_SIZE);
 
-        for (int ii = 0; ii < 2; ii++) {
-            for (int jj = 0; jj < 2; jj++) {
-                DenseMatrix denseMatrix = buildSubDenseMatrix(SIZE, BLOCK_SIZE);
+        for (int ii = 0; ii < SIZE/BLOCK_SIZE; ii++) {
+            for (int jj = 0; jj < SIZE/BLOCK_SIZE; jj++) {
+                DenseMatrix denseMatrix = buildSubDenseMatrix();
                 blockMatrixBuilder.set(
                         new Coordinate(ii, jj),
                         denseMatrix
@@ -43,13 +43,13 @@ public class TransformationTests {
         return blockMatrixBuilder.get();
     }
 
-    private DenseMatrix buildSubDenseMatrix(int SIZE, int BLOCK_SIZE) {
-        double[][] denseMatrix = new double[SIZE / BLOCK_SIZE][SIZE / BLOCK_SIZE];
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+    private DenseMatrix buildSubDenseMatrix() {
+        double[][] denseMatrix = new double[BLOCK_SIZE][BLOCK_SIZE];
+        for (int i = 0; i < BLOCK_SIZE; i++) {
+            for (int j = 0; j < BLOCK_SIZE; j++) {
                 denseMatrix[i][j] = new Random().nextDouble();
             }
         }
-        return new DenseMatrix(SIZE / BLOCK_SIZE, denseMatrix);
+        return new DenseMatrix(BLOCK_SIZE, denseMatrix);
     }
 }

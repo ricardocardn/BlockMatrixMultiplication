@@ -10,7 +10,7 @@ import java.util.Random;
 import static junit.framework.Assert.assertEquals;
 
 public class DenseMultiplicationTests {
-    private static int SIZE = 2;
+    private static int SIZE = 8;
 
     @Test
     public void multiplyTest() {
