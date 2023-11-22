@@ -1,25 +1,25 @@
 package org.ulpgc.parablock.operators.transformers;
 
-import org.ulpgc.parablock.builders.dense.DenseMatrixBuilder;
+import org.ulpgc.parablock.builders.DenseMatrixBuilder;
 import org.ulpgc.parablock.matrix.Matrix;
-import org.ulpgc.parablock.matrix.block.BlockMatrix;
-import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
-import org.ulpgc.parablock.matrix.dense.DenseMatrix;
+import org.ulpgc.parablock.matrix.BlockMatrix;
+import org.ulpgc.parablock.matrix.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 
-public class Transform2DenseMatrix<Type extends Number> extends MatrixTransformer<Type> {
+public class Transform2DenseMatrix extends MatrixTransformer {
     @Override
-    public DenseMatrix<Type> execute(Matrix<Type> matrix) {
-        return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix<Type>) matrix;
+    public DenseMatrix execute(Matrix matrix) {
+        return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix) matrix;
     }
 
-    private boolean isOfBlocks(Matrix<Type> matrix) {
-        return matrix instanceof BlockMatrix<?>;
+    private boolean isOfBlocks(Matrix matrix) {
+        return matrix instanceof BlockMatrix;
     }
 
-    private DenseMatrix<Type> transformFromBlocks(Matrix<Type> matrix) {
-        BlockMatrix<Type> blockMatrix = (BlockMatrix<Type>) matrix;
-        DenseMatrixBuilder<Type> matrixBuilder = new DenseMatrixBuilder<>(size(blockMatrix));
+    private DenseMatrix transformFromBlocks(Matrix matrix) {
+        BlockMatrix blockMatrix = (BlockMatrix) matrix;
+        DenseMatrixBuilder matrixBuilder = new DenseMatrixBuilder(size(blockMatrix));
 
         for (int ii = 0; ii < blockMatrix.size(); ii++)
             for (int jj = 0; jj < blockMatrix.size(); jj++)
@@ -28,11 +28,11 @@ public class Transform2DenseMatrix<Type extends Number> extends MatrixTransforme
         return matrixBuilder.get();
     }
 
-    private int size(BlockMatrix<Type> blockMatrix) {
+    private int size(BlockMatrix blockMatrix) {
         return blockMatrix.size() * BLOCK_SIZE;
     }
 
-    private void insertSubBlock(BlockMatrix<Type> blockMatrix, DenseMatrixBuilder<Type> matrixBuilder, int ii, int jj) {
+    private void insertSubBlock(BlockMatrix blockMatrix, DenseMatrixBuilder matrixBuilder, int ii, int jj) {
         for (int i = 0; i < BLOCK_SIZE; i++)
             for (int j = 0; j < BLOCK_SIZE; j++)
                 matrixBuilder.set(

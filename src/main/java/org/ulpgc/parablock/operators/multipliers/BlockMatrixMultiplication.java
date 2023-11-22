@@ -1,37 +1,44 @@
 package org.ulpgc.parablock.operators.multipliers;
 
-import org.ulpgc.parablock.builders.block.BlockMatrixBuilder;
+import org.ulpgc.parablock.builders.BlockMatrixBuilder;
+import org.ulpgc.parablock.builders.DenseMatrixBuilder;
+import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
-import org.ulpgc.parablock.matrix.block.BlockMatrix;
-import org.ulpgc.parablock.matrix.block.coordinates.Coordinate;
+import org.ulpgc.parablock.matrix.BlockMatrix;
+import org.ulpgc.parablock.matrix.coordinates.Coordinate;
+import org.ulpgc.parablock.operators.MatrixAddition;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
+import org.ulpgc.parablock.operators.adders.DenseMatrixAddition;
 import org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix;
 
-public class BlockMatrixMultiplication<Type extends Number> implements MatrixMultiplication<Type> {
-    private final Transform2BlockMatrix<Type> transformer;
-    private final MatrixMultiplication<Type> denseMultiplier;
+public class BlockMatrixMultiplication implements MatrixMultiplication {
+    private final Transform2BlockMatrix transformer;
+    private final MatrixMultiplication denseMultiplier;
+    private final MatrixAddition matrixAddition;
 
     public BlockMatrixMultiplication() {
-        transformer = new Transform2BlockMatrix<>();
-        denseMultiplier = new DenseMatrixMultiplication<>();
+        transformer = new Transform2BlockMatrix();
+        denseMultiplier = new DenseMatrixMultiplication();
+        matrixAddition = new DenseMatrixAddition();
     }
 
     @Override
-    public Matrix<Type> multiply(Matrix<Type> A, Matrix<Type> B) {
-        BlockMatrix<Type> matrixA = transformer.execute(A);
-        BlockMatrix<Type> matrixB = transformer.execute(B);
+    public Matrix multiply(Matrix A, Matrix B) {
+        BlockMatrix matrixA = transformer.execute(A);
+        BlockMatrix matrixB = transformer.execute(B);
 
-        BlockMatrixBuilder<Type> matrixBuilder = new BlockMatrixBuilder<>(matrixA.size());
+        BlockMatrixBuilder matrixBuilder = new BlockMatrixBuilder(matrixA.size());
 
-        for (int epoch = 0; epoch < matrixA.size(); epoch++) {
-            matrixA.horizontalAlign(epoch);
-            matrixB.verticalAlign(epoch);
-
-            for (int ii = 0; ii < matrixA.size(); ii++) {
-                for (int jj = 0; jj < matrixA.size(); jj++) {
-                    Matrix<Type> product = denseMultiplier.multiply(matrixA.get(ii, jj), matrixB.get(ii, jj));
-                    matrixBuilder.set(new Coordinate(ii, jj), product);
+        for (int ii = 0; ii < matrixA.size(); ii++) {
+            for (int jj = 0; jj < matrixA.size(); jj++) {
+                int size = matrixA.get(ii, jj).size();
+                DenseMatrix denseMatrix = new DenseMatrix(size, new double[size][size]);
+                for (int kk = 0; kk < matrixA.size(); kk++) {
+                    Matrix product = denseMultiplier.multiply(matrixA.get(ii, kk), matrixB.get(kk, jj));
+                    denseMatrix = matrixAddition.add(denseMatrix, product);
                 }
+
+                matrixBuilder.set(new Coordinate(ii, jj), denseMatrix);
             }
         }
 

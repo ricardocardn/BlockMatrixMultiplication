@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.matrix.block.coordinates;
+package org.ulpgc.parablock.matrix.coordinates;
 
 import java.util.Objects;
 

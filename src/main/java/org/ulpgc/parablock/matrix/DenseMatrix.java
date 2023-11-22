@@ -1,15 +1,13 @@
-package org.ulpgc.parablock.matrix.dense;
-
-import org.ulpgc.parablock.matrix.Matrix;
+package org.ulpgc.parablock.matrix;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DenseMatrix<Type extends Number> implements Matrix<Type> {
+public class DenseMatrix implements org.ulpgc.parablock.matrix.Matrix {
     private final int size;
-    private final Type[][] matrix;
+    private final double[][] matrix;
 
-    public DenseMatrix(int size, Type[][] matrix) {
+    public DenseMatrix(int size, double[][] matrix) {
         this.size = size;
         this.matrix = matrix;
     }
@@ -20,16 +18,16 @@ public class DenseMatrix<Type extends Number> implements Matrix<Type> {
     }
 
     @Override
-    public Type get(int i, int j) {
+    public Double get(int i, int j) {
         return matrix[i][j];
     }
 
-    public DenseMatrix<Type> deepCopy() {
-        Type[][] copiedMatrix = Arrays.stream(matrix)
+    public DenseMatrix deepCopy() {
+        double[][] copiedMatrix = Arrays.stream(matrix)
                 .map(row -> Arrays.copyOf(row, row.length))
                 .toArray(size -> Arrays.copyOf(matrix, size));
 
-        return new DenseMatrix<>(size, copiedMatrix);
+        return new DenseMatrix(size, copiedMatrix);
     }
 
     @Override
@@ -37,7 +35,7 @@ public class DenseMatrix<Type extends Number> implements Matrix<Type> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("DenseMatrix{Size: ").append(size).append(": ");
 
-        for (Type[] row : matrix) {
+        for (double[] row : matrix) {
             stringBuilder.append(Arrays.toString(row)).append("; ");
         }
 
@@ -49,8 +47,18 @@ public class DenseMatrix<Type extends Number> implements Matrix<Type> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DenseMatrix<?> that = (DenseMatrix<?>) o;
-        return size == that.size && Arrays.deepEquals(matrix, that.matrix);
+        DenseMatrix that = (DenseMatrix) o;
+        return size == that.size && doubleArrayEquals(matrix, that.matrix, 1E-8);
+    }
+
+    private boolean doubleArrayEquals(double[][] matrixA, double[][] matrixB, double epsilon) {
+        if (matrixA.length != matrixB.length) return false;
+        for (int i = 0; i < matrixA.length; i++)
+            for (int j = 0; j < matrixA.length; j++)
+                if (Math.abs(matrixA[i][j] - matrixB[i][j]) > epsilon)
+                    return false;
+
+        return true;
     }
 
     @Override

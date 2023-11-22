@@ -2,8 +2,8 @@ package org.ulpgc.parablock.operators;
 
 import org.ulpgc.parablock.matrix.Matrix;
 
-public abstract class MatrixTransformer<Type> {
+public abstract class MatrixTransformer {
     protected final static int BLOCK_SIZE = 2;
 
-    public abstract Matrix<Type> execute(Matrix<Type> matrix);
+    public abstract Matrix execute(Matrix matrix);
 }
