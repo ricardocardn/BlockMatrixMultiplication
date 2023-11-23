@@ -16,6 +16,7 @@ public class MultiplicationTests {
     private final MatrixMultiplication denseMatrixMultiplication = new DenseMatrixMultiplication();
     private final Matrix matrixA = buildBlockMatrix();
     private final Matrix matrixC = buildSubDenseMatrix();
+
     @Test
     public void blockMultiplicationTest() {
         blockMatrixMultiplication.multiply(matrixA, matrixA);
