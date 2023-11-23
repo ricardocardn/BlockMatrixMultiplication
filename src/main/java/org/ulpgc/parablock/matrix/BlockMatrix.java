@@ -8,9 +8,9 @@ import java.util.Objects;
 
 public class BlockMatrix implements org.ulpgc.parablock.matrix.Matrix {
     private final int size;
-    private final Map<Coordinate, org.ulpgc.parablock.matrix.DenseMatrix> matrix;
+    private final Map<Coordinate, DenseMatrix> matrix;
 
-    public BlockMatrix(int size, Map<Coordinate, org.ulpgc.parablock.matrix.DenseMatrix> matrix) {
+    public BlockMatrix(int size, Map<Coordinate, DenseMatrix> matrix) {
         this.size = size;
         this.matrix = matrix;
     }
@@ -25,20 +25,6 @@ public class BlockMatrix implements org.ulpgc.parablock.matrix.Matrix {
         return matrix.get(
                 new Coordinate(i,j)
         );
-    }
-
-    public BlockMatrix deepCopy() {
-        Map<Coordinate, org.ulpgc.parablock.matrix.DenseMatrix> newMatrix = new HashMap<>();
-
-        for (Map.Entry<Coordinate, org.ulpgc.parablock.matrix.DenseMatrix> entry : matrix.entrySet()) {
-            Coordinate coordinate = entry.getKey();
-            org.ulpgc.parablock.matrix.DenseMatrix originalMatrix = entry.getValue();
-            org.ulpgc.parablock.matrix.DenseMatrix clonedMatrix = originalMatrix.deepCopy();
-
-            newMatrix.put(coordinate, clonedMatrix);
-        }
-
-        return new BlockMatrix(size, newMatrix);
     }
 
     @Override

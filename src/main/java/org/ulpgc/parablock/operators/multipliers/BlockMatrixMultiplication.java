@@ -1,7 +1,6 @@
 package org.ulpgc.parablock.operators.multipliers;
 
 import org.ulpgc.parablock.builders.BlockMatrixBuilder;
-import org.ulpgc.parablock.builders.DenseMatrixBuilder;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.matrix.BlockMatrix;
@@ -13,7 +12,7 @@ import org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix;
 
 public class BlockMatrixMultiplication implements MatrixMultiplication {
     private final Transform2BlockMatrix transformer;
-    private final MatrixMultiplication denseMultiplier;
+    private final DenseMatrixMultiplication denseMultiplier;
     private final MatrixAddition matrixAddition;
 
     public BlockMatrixMultiplication() {
