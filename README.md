@@ -116,8 +116,8 @@ client.start();
 
 ```java
 // ORCHESTRATOR
-DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
-Matrix result = distributedMultiplicationOrchestrator.multiply(matrixA, matrixB);
+Orchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
+Matrix result = Orchestrator.multiply(matrixA, matrixB);
 ```
 
 These two could co-exists in the same method, even though it will show an under-performance when comparing to simple parallelism. However, you should make sure that clients are running before orchestrator. Otherwise, orchestrator will take the whole work.  
