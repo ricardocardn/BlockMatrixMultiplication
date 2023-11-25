@@ -1,7 +1,7 @@
 package org.ulpgc.parablock.operators.multipliers.distributed;
 
 import com.google.gson.Gson;
-import com.hazelcast.client.Client;
+
 import com.hazelcast.client.ClientService;
 import com.hazelcast.cluster.Cluster;
 import com.hazelcast.cluster.Member;
@@ -9,14 +9,10 @@ import com.hazelcast.collection.IList;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
-import com.hazelcast.multimap.MultiMap;
+
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
-import org.ulpgc.parablock.operators.adders.BlockMatrixAddition;
 
-import java.rmi.server.UID;
-import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
