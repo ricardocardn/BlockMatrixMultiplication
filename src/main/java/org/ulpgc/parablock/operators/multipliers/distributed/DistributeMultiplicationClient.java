@@ -44,5 +44,7 @@ public class DistributeMultiplicationClient extends Thread {
                         )
                 )
         );
+
+        hazelcastInstance.shutdown();
     }
 }

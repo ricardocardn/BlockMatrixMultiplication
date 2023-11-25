@@ -1,4 +1,4 @@
-package org.ulpgc.parablock;
+package org.ulpgc.parablock.operators.multipliers.distributed;
 
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
@@ -9,17 +9,15 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        DenseMatrix matrixA = buildDenseMatrix(32);
-        DenseMatrix matrixB = buildDenseMatrix(32);
-        System.out.println(matrixA);
-        System.out.println(matrixB);
+        DenseMatrix matrixA = buildDenseMatrix(100);
+        DenseMatrix matrixB = buildDenseMatrix(100);
+        DenseMatrix matrixC = buildDenseMatrix(100);
 
         DistributeMultiplicationClient client = new DistributeMultiplicationClient();
         client.start();
 
-        DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
-        Matrix result = distributedMultiplicationOrchestrator.multiply(matrixA, matrixB);
-        System.out.println(result);
+        DistributedMultiplicationOrchestrator orchestrator = new DistributedMultiplicationOrchestrator();
+        Matrix result = orchestrator.multiply(matrixA, matrixB);
     }
 
     private static DenseMatrix buildDenseMatrix(int size) {

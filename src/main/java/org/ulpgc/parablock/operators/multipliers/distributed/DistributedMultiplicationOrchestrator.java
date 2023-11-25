@@ -91,6 +91,7 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
                 );
         }
 
+        hazelcastInstance.shutdown();
         return finalMatrix;
     }
 }
