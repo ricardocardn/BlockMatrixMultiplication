@@ -2,12 +2,10 @@ package org.ulpgc.parablock.operators.multipliers.distributed;
 
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
-import org.ulpgc.parablock.operators.multipliers.distributed.DistributeMultiplicationClient;
-import org.ulpgc.parablock.operators.multipliers.distributed.DistributedMultiplicationOrchestrator;
 
 import java.util.Random;
 
-public class Main {
+public class DistributedMultiplicationTests {
     public static void main(String[] args) {
         DenseMatrix matrixA = buildDenseMatrix(100);
         DenseMatrix matrixB = buildDenseMatrix(100);
