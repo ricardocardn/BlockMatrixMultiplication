@@ -25,8 +25,6 @@ public class DistributeMultiplicationClient extends Thread {
         Map<UUID, int[]> map = hazelcastInstance.getMap("MatrixMultiplication");
         UUID uuid = hazelcastInstance.getLocalEndpoint().getUuid();
         hazelcastInstance.getTopic("AvailableClients").publish(uuid.toString());
-        System.out.println("ok1");
-        System.out.println(uuid);
 
         while (!map.containsKey(uuid)) {}
 

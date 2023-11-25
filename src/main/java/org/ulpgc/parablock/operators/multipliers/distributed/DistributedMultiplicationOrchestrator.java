@@ -41,6 +41,7 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
         int i = 0;
         for (Member member : members) {
             System.out.println("Added member for mult.: " + member.getUuid());
+            System.out.println("    |- Assigned rows: " + i + " - " + (i + matrixA.size()/(members.size())));
             map.put(member.getUuid(), new int[]{i, matrixA.size()/(members.size())});
             i = i + matrixA.size()/(members.size());
         }
