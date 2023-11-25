@@ -36,7 +36,7 @@ DenseMatrix denseMatrix = matrixBuilder.get();
 The `BlockMatrixBuilder` class constructs block matrices. It takes a size parameter and sets dense matrices at specified coordinates.
 
 ```java
-BlockMatrixBuilder matrixBuilder = new BlockMatrixBuilder(size);
+MatrixBuilder matrixBuilder = new BlockMatrixBuilder(size);
 matrixBuilder.set(new Coordinate(0, 0), denseMatrix1);
 matrixBuilder.set(new Coordinate(0, 1), denseMatrix2);
 ...
