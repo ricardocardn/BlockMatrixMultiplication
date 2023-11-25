@@ -1,4 +1,4 @@
-# ParaBlock: **Parallel Block** Matrix Multiplication
+# <b>ParaBlock</b>: Parallel Tile Matrix Multiplication
 
 This Java library provides implementations for matrix operations in parallel computing environments. Below, you'll find explanations for the different components of the library.
 
