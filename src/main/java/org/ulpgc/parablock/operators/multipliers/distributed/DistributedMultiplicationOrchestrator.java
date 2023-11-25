@@ -10,19 +10,21 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 
+import org.ulpgc.parablock.matrix.BlockMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
+import org.ulpgc.parablock.operators.adders.BlockMatrixAddition;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 public class DistributedMultiplicationOrchestrator implements MatrixMultiplication {
     private final HazelcastInstance hazelcastInstance;
-    private final ClientService clientService;
 
     public DistributedMultiplicationOrchestrator() {
         hazelcastInstance = Hazelcast.newHazelcastInstance();
-        clientService = hazelcastInstance.getClientService();
+        ClientService clientService = hazelcastInstance.getClientService();
     }
 
     public Matrix multiply(Matrix matrixA, Matrix matrixB) {
@@ -42,10 +44,37 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
             i = i + matrixA.size()/(members.size());
         }
 
-        return null;
+        multiplySubMatrices(map);
+        return calculateResult();
     }
 
-    private int connectedClients() {
-        return clientService.getConnectedClients().size();
+    private void multiplySubMatrices(IMap<UUID, int[]> map) {
+        IList<String> matrices = hazelcastInstance.getList("Matrices");
+        Matrix matrixA = new Gson().fromJson(matrices.get(0), BlockMatrix.class);
+        Matrix matrixB = new Gson().fromJson(matrices.get(1), BlockMatrix.class);
+
+        DistributedTileMultiplication multiplier = new DistributedTileMultiplication();
+        UUID uuid = hazelcastInstance.getLocalEndpoint().getUuid();
+        int[] pos = map.get(uuid);
+
+        hazelcastInstance.getMap("results").put(
+                uuid,
+                multiplier.multiply(matrixA, matrixB, pos[0], pos[1])
+        );
+    }
+
+    private Matrix calculateResult() {
+        BlockMatrixAddition blockMatrixAddition = new BlockMatrixAddition();
+        IMap<Object, Object> results = hazelcastInstance.getMap("results");
+
+        Matrix finalMatrix = null;
+        for (Object matrix : results.keySet()) {
+            if (finalMatrix == null)
+                finalMatrix = (BlockMatrix) matrix;
+            else
+                finalMatrix = blockMatrixAddition.add(finalMatrix, (BlockMatrix) matrix);
+        }
+
+        return finalMatrix;
     }
 }
