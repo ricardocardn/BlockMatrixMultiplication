@@ -115,7 +115,7 @@ client.start();
 ```
 
 ```java
-// ORCHESTRATOR
+// ORCHESTRATOR: splits the work for different clients, including orchestrator it-self
 DistributedMultiplicationOrchestrator orchestrator = new DistributedMultiplicationOrchestrator();
 Matrix result = orchestrator.multiply(matrixA, matrixB);
 ```
