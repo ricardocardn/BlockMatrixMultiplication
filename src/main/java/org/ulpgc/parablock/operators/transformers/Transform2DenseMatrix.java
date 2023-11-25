@@ -7,7 +7,9 @@ import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 
-public class Transform2DenseMatrix extends MatrixTransformer {
+public class Transform2DenseMatrix implements MatrixTransformer {
+    private static int BLOCK_SIZE;
+
     @Override
     public DenseMatrix execute(Matrix matrix) {
         return isOfBlocks(matrix) ? transformFromBlocks(matrix) : (DenseMatrix) matrix;
@@ -18,6 +20,7 @@ public class Transform2DenseMatrix extends MatrixTransformer {
     }
 
     private DenseMatrix transformFromBlocks(Matrix matrix) {
+        BLOCK_SIZE = blockSize(matrix);
         BlockMatrix blockMatrix = (BlockMatrix) matrix;
         DenseMatrixBuilder matrixBuilder = new DenseMatrixBuilder(size(blockMatrix));
 
@@ -39,6 +42,10 @@ public class Transform2DenseMatrix extends MatrixTransformer {
                         new Coordinate(ii*BLOCK_SIZE + i, jj*BLOCK_SIZE + j),
                         blockMatrix.get(ii, jj).get(i, j)
                 );
+    }
+
+    private int blockSize(Matrix matrix) {
+        return ((BlockMatrix) matrix).get(0,0).size();
     }
 
 }

@@ -7,21 +7,22 @@ import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
 
+import java.util.Map;
 import java.util.Random;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ParallelBlockMultiplicationTests {
-    private final static int SIZE = 2048;
-    private final static int BLOCK_SIZE = 512;
+    private final static int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+    private final static int SIZE = AVAILABLE_PROCESSORS;
+    private final static int BLOCK_SIZE = 2048/AVAILABLE_PROCESSORS;
+    private final MatrixMultiplication blockMatrixMultiplication = new ParallelBlockMatrixMultiplication();
+    private final Matrix matrixA = buildBlockMatrix();
+    private final Matrix matrixB = buildBlockMatrix();
+    private final Matrix matrixC = buildBlockMatrix();
 
     @Test
     public void blockMultiplicationTest() {
-        Matrix matrixA = buildBlockMatrix();
-        Matrix matrixB = buildBlockMatrix();
-        Matrix matrixC = buildBlockMatrix();
-
-        MatrixMultiplication blockMatrixMultiplication = new ParallelBlockMatrixMultiplication();
         Matrix AB = blockMatrixMultiplication.multiply(matrixA, matrixB);
         Matrix AB_C = blockMatrixMultiplication.multiply(AB, matrixC);
 
@@ -32,10 +33,10 @@ public class ParallelBlockMultiplicationTests {
     }
 
     private Matrix buildBlockMatrix() {
-        BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE/BLOCK_SIZE);
+        BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE);
 
-        for (int ii = 0; ii < SIZE/BLOCK_SIZE; ii++) {
-            for (int jj = 0; jj < SIZE/BLOCK_SIZE; jj++) {
+        for (int ii = 0; ii < SIZE; ii++) {
+            for (int jj = 0; jj < SIZE; jj++) {
                 DenseMatrix denseMatrix = buildSubDenseMatrix();
                 blockMatrixBuilder.set(
                         new Coordinate(ii, jj),

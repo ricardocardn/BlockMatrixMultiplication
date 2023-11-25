@@ -12,8 +12,8 @@ import java.util.Random;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class TransformationTests {
-    private static int SIZE = 32;
-    private static int BLOCK_SIZE = 2;
+    private static final int SIZE = 32;
+    private static final int BLOCK_SIZE = Runtime.getRuntime().availableProcessors();
 
     @Test
     public void testTransformEquals() {

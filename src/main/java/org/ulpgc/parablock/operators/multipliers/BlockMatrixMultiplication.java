@@ -34,7 +34,7 @@ public class BlockMatrixMultiplication implements MatrixMultiplication {
                 DenseMatrix denseMatrix = new DenseMatrix(size, new double[size][size]);
                 for (int kk = 0; kk < matrixA.size(); kk++) {
                     Matrix product = denseMultiplier.multiply(matrixA.get(ii, kk), matrixB.get(kk, jj));
-                    denseMatrix = matrixAddition.add(denseMatrix, product);
+                    denseMatrix = (DenseMatrix) matrixAddition.add(denseMatrix, product);
                 }
 
                 matrixBuilder.set(new Coordinate(ii, jj), denseMatrix);

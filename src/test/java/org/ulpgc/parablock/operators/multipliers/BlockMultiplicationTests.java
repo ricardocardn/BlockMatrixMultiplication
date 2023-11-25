@@ -12,16 +12,17 @@ import java.util.Random;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class BlockMultiplicationTests {
-    private static int SIZE = 16;
-    private static int BLOCK_SIZE = 4;
+    private final BlockMatrixMultiplication blockMatrixMultiplication = new BlockMatrixMultiplication();
+    private final static int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+    private final static int SIZE = AVAILABLE_PROCESSORS;
+    private final static int BLOCK_SIZE = 2048/AVAILABLE_PROCESSORS;
+    private final Matrix matrixA = buildBlockMatrix();
+    private final Matrix matrixB = buildBlockMatrix();
+    private final Matrix matrixC = buildBlockMatrix();
+
 
     @Test
     public void blockMultiplicationTest() {
-        Matrix matrixA = buildBlockMatrix();
-        Matrix matrixB = buildBlockMatrix();
-        Matrix matrixC = buildBlockMatrix();
-
-        BlockMatrixMultiplication blockMatrixMultiplication = new BlockMatrixMultiplication();
         Matrix AB = blockMatrixMultiplication.multiply(matrixA, matrixB);
         Matrix AB_C = blockMatrixMultiplication.multiply(AB, matrixC);
 
@@ -32,10 +33,10 @@ public class BlockMultiplicationTests {
     }
 
     private Matrix buildBlockMatrix() {
-        BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE/BLOCK_SIZE);
+        BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE);
 
-        for (int ii = 0; ii < SIZE/BLOCK_SIZE; ii++) {
-            for (int jj = 0; jj < SIZE/BLOCK_SIZE; jj++) {
+        for (int ii = 0; ii < SIZE; ii++) {
+            for (int jj = 0; jj < SIZE; jj++) {
                 DenseMatrix denseMatrix = buildSubDenseMatrix();
                 blockMatrixBuilder.set(
                         new Coordinate(ii, jj),
@@ -47,12 +48,12 @@ public class BlockMultiplicationTests {
     }
 
     private DenseMatrix buildSubDenseMatrix() {
-        double[][] denseMatrix = new double[SIZE / BLOCK_SIZE][SIZE / BLOCK_SIZE];
+        double[][] denseMatrix = new double[BLOCK_SIZE][BLOCK_SIZE];
         for (int i = 0; i < BLOCK_SIZE; i++) {
             for (int j = 0; j < BLOCK_SIZE; j++) {
                 denseMatrix[i][j] = new Random().nextDouble();
             }
         }
-        return new DenseMatrix(SIZE / BLOCK_SIZE, denseMatrix);
+        return new DenseMatrix(BLOCK_SIZE, denseMatrix);
     }
 }

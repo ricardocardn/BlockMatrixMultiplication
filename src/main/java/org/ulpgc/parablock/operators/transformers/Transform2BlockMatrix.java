@@ -8,7 +8,9 @@ import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 
-public class Transform2BlockMatrix extends MatrixTransformer {
+public class Transform2BlockMatrix implements MatrixTransformer {
+    private static final int BLOCK_SIZE = Runtime.getRuntime().availableProcessors();
+
     @Override
     public BlockMatrix execute(Matrix matrix) {
         return isDense(matrix) ? transformFromDense(matrix) : (BlockMatrix) matrix;
