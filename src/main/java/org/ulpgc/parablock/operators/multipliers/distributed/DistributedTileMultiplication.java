@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class DistributedTileMultiplication implements DistributedMultiplication {
+    private final int AVAILABLE_CORES  = Runtime.getRuntime().availableProcessors();
     private final Transform2BlockMatrix transformer;
     private final MatrixMultiplication denseMultiplier;
     private final MatrixAddition matrixAddition;
@@ -31,17 +32,21 @@ public class DistributedTileMultiplication implements DistributedMultiplication 
 
     @Override
     public Matrix multiply(Matrix A, Matrix B, int startingRow, int endingRow) {
-        service = Executors.newFixedThreadPool(8);
+        service = Executors.newFixedThreadPool(AVAILABLE_CORES);
 
         BlockMatrix matrixA = transformer.execute(A);
         BlockMatrix matrixB = transformer.execute(B);
 
         int SIZE = matrixA.size();
+        int BLOCK_SIZE = matrixA.get(0,0).size();
 
         final DenseMatrix[][] blocks = new DenseMatrix[SIZE][SIZE];
-        for (int i = startingRow; i < endingRow; i++) {
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                computeInParallel(matrixA, matrixB, blocks, i, j);
+                if (startingRow <= i && i < endingRow)
+                    computeInParallel(matrixA, matrixB, blocks, i, j);
+                else
+                    blocks[i][j] = zeros(BLOCK_SIZE);
             }
         }
 
@@ -68,6 +73,15 @@ public class DistributedTileMultiplication implements DistributedMultiplication 
                     );
                 }
         );
+    }
+
+    private DenseMatrix zeros(int size) {
+        double[][] zeros = new double[size][size];
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
+                zeros[i][j] = 0;
+
+        return new DenseMatrix(size, zeros);
     }
 
     private Matrix asBlockMatrix(DenseMatrix[][] blocks) {

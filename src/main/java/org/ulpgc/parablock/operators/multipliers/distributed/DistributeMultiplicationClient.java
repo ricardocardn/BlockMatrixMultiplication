@@ -6,7 +6,9 @@ import com.hazelcast.collection.IList;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.ulpgc.parablock.matrix.BlockMatrix;
+import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix;
 
 import java.util.Map;
 import java.util.UUID;
@@ -28,15 +30,19 @@ public class DistributeMultiplicationClient extends Thread {
         while (!map.containsKey(uuid)) {}
 
         IList<String> matrices = hazelcastInstance.getList("Matrices");
-        Matrix matrixA = new Gson().fromJson(matrices.get(0), BlockMatrix.class);
-        Matrix matrixB = new Gson().fromJson(matrices.get(1), BlockMatrix.class);
+        Matrix matrixA = new Gson().fromJson(matrices.get(0), DenseMatrix.class);
+        Matrix matrixB = new Gson().fromJson(matrices.get(1), DenseMatrix.class);
 
         DistributedTileMultiplication multiplier = new DistributedTileMultiplication();
         int[] pos = map.get(uuid);
 
         hazelcastInstance.getMap("results").put(
                 uuid,
-                multiplier.multiply(matrixA, matrixB, pos[0], pos[1])
+                new Gson().toJson(
+                        new Transform2DenseMatrix().execute(
+                            multiplier.multiply(matrixA, matrixB, pos[0], pos[1])
+                        )
+                )
         );
     }
 }

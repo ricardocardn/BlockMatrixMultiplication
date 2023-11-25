@@ -9,7 +9,7 @@ import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 
 public class Transform2BlockMatrix implements MatrixTransformer {
-    private static final int BLOCK_SIZE = Runtime.getRuntime().availableProcessors();
+    private static int BLOCK_SIZE;
 
     @Override
     public BlockMatrix execute(Matrix matrix) {
@@ -21,6 +21,7 @@ public class Transform2BlockMatrix implements MatrixTransformer {
     }
 
     private BlockMatrix transformFromDense(Matrix matrix) {
+        BLOCK_SIZE = Math.min(Runtime.getRuntime().availableProcessors(), matrix.size());
         DenseMatrix denseMatrix = (DenseMatrix) matrix;
         BlockMatrixBuilder matrixBuilder = new BlockMatrixBuilder(denseMatrix.size()/BLOCK_SIZE);
 

@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class ParallelBlockMatrixMultiplication implements MatrixMultiplication {
+    private final int AVAILABLE_CORES  = Runtime.getRuntime().availableProcessors();
     private final Transform2BlockMatrix transformer;
     private final MatrixMultiplication denseMultiplier;
     private final MatrixAddition matrixAddition;
@@ -30,7 +31,7 @@ public class ParallelBlockMatrixMultiplication implements MatrixMultiplication {
 
     @Override
     public Matrix multiply(Matrix A, Matrix B) {
-        service = Executors.newFixedThreadPool(40);
+        service = Executors.newFixedThreadPool(AVAILABLE_CORES);
 
         BlockMatrix matrixA = transformer.execute(A);
         BlockMatrix matrixB = transformer.execute(B);
