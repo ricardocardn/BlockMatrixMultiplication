@@ -41,7 +41,7 @@ matrixBuilder.set(new Coordinate(0, 0), denseMatrix1);
 matrixBuilder.set(new Coordinate(0, 1), denseMatrix2);
 ...
 
-BlockMatrix blockMatrix = matrixBuilder.get();
+BlockMatrix blockMatrix = (BlockMatrix) matrixBuilder.get();
 ```
 
 ## Operators
@@ -75,7 +75,7 @@ DenseMatrix result = multiplier.multiply(matrixA, matrixB);
 `BlockMatrixMultiplication`: The BlockMatrixMultiplication class performs multiplication for block matrices.
 
 ```java
-MatrixMultiplication multiplier = new DoubleBlockMatrixMultiplication();
+MatrixMultiplication multiplier = new BlockMatrixMultiplication();
         BlockMatrix result = multiplier.multiply(matrixA, matrixB);
 ```
 
