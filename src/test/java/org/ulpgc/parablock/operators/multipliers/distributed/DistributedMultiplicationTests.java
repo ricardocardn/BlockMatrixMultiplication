@@ -7,9 +7,8 @@ import java.util.Random;
 
 public class DistributedMultiplicationTests {
     public static void main(String[] args) {
-        DenseMatrix matrixA = buildDenseMatrix(100);
-        DenseMatrix matrixB = buildDenseMatrix(100);
-        DenseMatrix matrixC = buildDenseMatrix(100);
+        DenseMatrix matrixA = buildDenseMatrix(2000);
+        DenseMatrix matrixB = buildDenseMatrix(2000);
 
         DistributeMultiplicationClient client = new DistributeMultiplicationClient();
         client.start();

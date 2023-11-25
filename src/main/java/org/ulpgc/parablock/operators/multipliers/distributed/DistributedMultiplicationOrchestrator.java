@@ -25,12 +25,11 @@ import java.util.UUID;
 
 public class DistributedMultiplicationOrchestrator implements MatrixMultiplication {
     private final HazelcastInstance hazelcastInstance;
-    private final Transform2DenseMatrix transformer;
+    private int activeClients = 0;
 
     public DistributedMultiplicationOrchestrator() {
         hazelcastInstance = Hazelcast.newHazelcastInstance();
-        ClientService clientService = hazelcastInstance.getClientService();
-        transformer = new Transform2DenseMatrix();
+        hazelcastInstance.getClientService();
     }
 
     public Matrix multiply(Matrix matrixA, Matrix matrixB) {
@@ -52,6 +51,7 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
             System.out.println("    |- Assigned rows: " + i + " - " + (i + rows));
             map.put(member.getUuid(), new int[]{i, i + rows});
             i = i + rows;
+            activeClients++;
         }
 
         multiplySubMatrices(map);
@@ -80,6 +80,7 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
     private Matrix calculateResult() {
         MatrixAddition denseMatrixAdder = new DenseMatrixAddition();
         IMap<UUID, String> results = hazelcastInstance.getMap("results");
+        while (results.size() < activeClients) {}
 
         Matrix finalMatrix = null;
         for (UUID uuid : results.keySet()) {

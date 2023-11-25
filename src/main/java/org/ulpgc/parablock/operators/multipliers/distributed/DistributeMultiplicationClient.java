@@ -5,7 +5,6 @@ import com.hazelcast.client.ClientService;
 import com.hazelcast.collection.IList;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import org.ulpgc.parablock.matrix.BlockMatrix;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix;
@@ -18,7 +17,7 @@ public class DistributeMultiplicationClient extends Thread {
 
     public DistributeMultiplicationClient() {
         hazelcastInstance = Hazelcast.newHazelcastInstance();
-        ClientService clientService = hazelcastInstance.getClientService();
+        hazelcastInstance.getClientService();
     }
 
     @Override
