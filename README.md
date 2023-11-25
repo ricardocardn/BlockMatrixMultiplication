@@ -109,15 +109,15 @@ BlockMatrix blockAfterTransform = transform2Block.execute(denseMatrix);
 This approach make use of HazelCast to split the multiplication process in different computers or application servers. Each end-point at the HazelCast network apply parallelism to compute its multiplication, making use of `ExecutorService` as `ParallelBlockMatrixMultiplication` class does. Here's an example of use:
 
 ```java
-// CLIENT
+// CLIENT: Waits for orchestrator to multiply the corresponding matrices
 DistributeMultiplicationClient client = new DistributeMultiplicationClient();
 client.start();
 ```
 
 ```java
-// ORCHESTRATOR
-DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
-Matrix result = distributedMultiplicationOrchestrator.multiply(matrixA, matrixB);
+// ORCHESTRATOR: splits the work for different clients, including orchestrator it-self
+DistributedMultiplicationOrchestrator orchestrator = new DistributedMultiplicationOrchestrator();
+Matrix result = orchestrator.multiply(matrixA, matrixB);
 ```
 
 These two could co-exists in the same method, even though it will show an under-performance when comparing to simple parallelism. However, you should make sure that clients are running before orchestrator. Otherwise, orchestrator will take the whole work.  
