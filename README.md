@@ -1,6 +1,6 @@
 # <b>ParaBlock</b>: Parallel Tile Matrix Multiplication
 
-This Java library provides implementations for matrix operations in parallel and distributed computing environments. You'll find bellow some explanations for the different components of the library, starting by the model definition, where matrices it-self are defined.
+This Java library provides implementations for matrix operations in parallel and distributed computing environments, making use of java executor services and even HazelCast, to deploy the work in a cluster of machines. You'll find below some explanations for the different components of the library, starting with the model definition, where matrices themselves are defined.
 
 ## Matrices
 
@@ -120,6 +120,6 @@ DistributedMultiplicationOrchestrator orchestrator = new DistributedMultiplicati
 Matrix result = orchestrator.multiply(matrixA, matrixB);
 ```
 
-These two could co-exists in the same method, even though it will show an under-performance when comparing to simple parallelism. However, you should make sure that clients are running before orchestrator. Otherwise, orchestrator will take the whole work.  
+These two could co-exists in the same machine, even though it will show an under-performance when compared to simple parallelism. However, you should make sure that clients are running before the orchestrator. Otherwise, the orchestrator will take the whole work.  
 
 
