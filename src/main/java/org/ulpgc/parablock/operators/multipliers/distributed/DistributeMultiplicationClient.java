@@ -1,39 +1,46 @@
 package org.ulpgc.parablock.operators.multipliers.distributed;
 
-import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
+import com.google.gson.Gson;
+import com.hazelcast.client.ClientService;
 import com.hazelcast.collection.IList;
+import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.multimap.MultiMap;
+import org.ulpgc.parablock.matrix.BlockMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 
 import java.util.Map;
 import java.util.UUID;
 
 public class DistributeMultiplicationClient extends Thread {
-    private final HazelcastInstance hazelcastClient;
+    private final HazelcastInstance hazelcastInstance;
+    private final ClientService clientService;
 
     public DistributeMultiplicationClient() {
-        ClientConfig clientConfig = new ClientConfig();
-        hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
+        hazelcastInstance = Hazelcast.newHazelcastInstance();
+        clientService = hazelcastInstance.getClientService();
     }
 
     @Override
     public void run() {
-        Map<UUID, int[]> map = hazelcastClient.getMap("MatrixMultiplication");
-        UUID uuid = hazelcastClient.getLocalEndpoint().getUuid();
+        Map<UUID, int[]> map = hazelcastInstance.getMap("MatrixMultiplication");
+        UUID uuid = hazelcastInstance.getLocalEndpoint().getUuid();
+        hazelcastInstance.getTopic("AvailableClients").publish(uuid.toString());
+        System.out.println("ok1");
+        System.out.println(uuid);
+
         while (!map.containsKey(uuid)) {}
 
-        IList<Matrix> matrices = hazelcastClient.getList("Matrices");
-        Matrix matrixA = matrices.get(0);
-        Matrix matrixB = matrices.get(1);
+        IList<String> matrices = hazelcastInstance.getList("Matrices");
+        Matrix matrixA = new Gson().fromJson(matrices.get(0), BlockMatrix.class);
+        Matrix matrixB = new Gson().fromJson(matrices.get(1), BlockMatrix.class);
 
         DistributedTileMultiplication multiplier = new DistributedTileMultiplication();
         int[] pos = map.get(uuid);
 
-        hazelcastClient.getMap("results").put(
+        hazelcastInstance.getMap("results").put(
                 uuid,
                 multiplier.multiply(matrixA, matrixB, pos[0], pos[1])
         );
+        System.out.println("ok");
     }
 }

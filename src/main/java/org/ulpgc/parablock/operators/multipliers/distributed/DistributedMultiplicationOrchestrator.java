@@ -1,5 +1,6 @@
 package org.ulpgc.parablock.operators.multipliers.distributed;
 
+import com.google.gson.Gson;
 import com.hazelcast.client.Client;
 import com.hazelcast.client.ClientService;
 import com.hazelcast.cluster.Cluster;
@@ -33,12 +34,13 @@ public class DistributedMultiplicationOrchestrator implements MatrixMultiplicati
         Cluster cluster = hazelcastInstance.getCluster();
         Set<Member> members = cluster.getMembers();
 
-        IList<Matrix> matrices = hazelcastInstance.getList("Matrices");
-        matrices.add(matrixA);
-        matrices.add(matrixB);
+        IList<String> matrices = hazelcastInstance.getList("Matrices");
+        matrices.add(new Gson().toJson(matrixA));
+        matrices.add(new Gson().toJson(matrixB));
 
         int i = 0;
         for (Member member : members) {
+            System.out.println("Added member for mult.: " + member.getUuid());
             map.put(member.getUuid(), new int[]{i, matrixA.size()/(members.size())});
             i = i + matrixA.size()/(members.size());
         }
