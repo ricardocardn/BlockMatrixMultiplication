@@ -13,11 +13,10 @@ import java.util.UUID;
 
 public class DistributeMultiplicationClient extends Thread {
     private final HazelcastInstance hazelcastInstance;
-    private final ClientService clientService;
 
     public DistributeMultiplicationClient() {
         hazelcastInstance = Hazelcast.newHazelcastInstance();
-        clientService = hazelcastInstance.getClientService();
+        ClientService clientService = hazelcastInstance.getClientService();
     }
 
     @Override
@@ -39,6 +38,5 @@ public class DistributeMultiplicationClient extends Thread {
                 uuid,
                 multiplier.multiply(matrixA, matrixB, pos[0], pos[1])
         );
-        System.out.println("ok");
     }
 }

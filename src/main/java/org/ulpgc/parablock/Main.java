@@ -6,10 +6,10 @@ import org.ulpgc.parablock.operators.multipliers.distributed.DistributedMultipli
 
 public class Main {
     public static void main(String[] args) {
-        DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
         DistributeMultiplicationClient client = new DistributeMultiplicationClient();
         client.start();
 
+        DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
         distributedMultiplicationOrchestrator.multiply(new DenseMatrix(10,new double[10][10]), new DenseMatrix(10,new double[10][10]));
     }
 }

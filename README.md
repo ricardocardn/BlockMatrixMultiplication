@@ -1,6 +1,6 @@
 # <b>ParaBlock</b>: Parallel Tile Matrix Multiplication
 
-This Java library provides implementations for matrix operations in parallel computing environments. Below, you'll find explanations for the different components of the library.
+This Java library provides implementations for matrix operations in parallel and distributed computing environments. You'll find bellow some explanations for the different components of the library, starting by the model definition, where matrices it-self are defined.
 
 ## Matrices
 
@@ -72,9 +72,54 @@ MatrixMultiplication multiplier = new DenseMatrixMultiplication();
 DenseMatrix result = multiplier.multiply(matrixA, matrixB);
 ```
 
-`DoubleBlockMatrixMultiplication`: The DoubleBlockMatrixMultiplication class performs multiplication for block matrices with Double elements.
+`BlockMatrixMultiplication`: The BlockMatrixMultiplication class performs multiplication for block matrices.
 
 ```java
 MatrixMultiplication multiplier = new DoubleBlockMatrixMultiplication();
+        BlockMatrix result = multiplier.multiply(matrixA, matrixB);
+```
+
+`ParallelBlockMatrixMultiplication`: The ParallelBlockMatrixMultiplication class performs multiplication for block matrices in parallel, taking advantage of your CPU cores.
+
+```java
+MatrixMultiplication multiplier = new ParallelBlockMatrixMultiplication();
 BlockMatrix result = multiplier.multiply(matrixA, matrixB);
 ```
+
+You can pass both Dense and Block matrices, as the share the same Matrix interface which is the one you may pass to this function. If you directly two dense matrices, they will be divided into blocks in such a way no cores of your CPU are idle. If you have two block matrices, make sure the were constructed using this values for size and block size, respectively.
+
+```java
+int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+int SIZE = AVAILABLE_PROCESSORS;
+int BLOCK_SIZE = 2048/AVAILABLE_PROCESSORS;
+```
+
+Or reshape them using transformers as
+
+```java
+Transform2DenseMatrix transformer2Dense = new Transform2DenseMatrix();
+DenseMatrix denseMatrix = transformer2Dense.execute(blockMatrix);
+
+Transform2BlockMatrix transform2Block = new Transform2BlockMatrix();
+BlockMatrix blockAfterTransform = transform2Block.execute(denseMatrix);
+```
+
+## HazelCast: Distributed Matrix Multiplication
+
+This approach make use of HazelCast to split the multiplication process in different computers or application servers. Each end-point at the HazelCast network apply parallelism to compute its multiplication, making use of `ExecutorService` as `ParallelBlockMatrixMultiplication` class does. Here's an example of use:
+
+```java
+// CLIENT
+DistributeMultiplicationClient client = new DistributeMultiplicationClient();
+client.start();
+```
+
+```java
+// ORCHESTRATOR
+DistributedMultiplicationOrchestrator distributedMultiplicationOrchestrator = new DistributedMultiplicationOrchestrator();
+Matrix result = distributedMultiplicationOrchestrator.multiply(matrixA, matrixB);
+```
+
+These two could co-exists in the same method, even though it will show an under-performance when comparing to simple parallelism. However, you should make sure that clients are running before orchestrator. Otherwise, orchestrator will take the whole work.  
+
+
