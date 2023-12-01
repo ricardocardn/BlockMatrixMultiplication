@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.operators.benches;
+package org.ulpgc.parablock.operators.benches.multipliers;
 
 import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;

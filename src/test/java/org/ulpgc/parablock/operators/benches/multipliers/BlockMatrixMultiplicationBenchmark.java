@@ -1,10 +1,10 @@
-package org.ulpgc.parablock.operators.benches;
+package org.ulpgc.parablock.operators.benches.multipliers;
 
 import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
-import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.BlockMatrixMultiplication;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Fork(2)
 @State(Scope.Benchmark)
-public class DenseMatrixMultiplicationBenchmark {
+public class BlockMatrixMultiplicationBenchmark {
     @Param({"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
     public int n;
     Matrix matrixA;
-     MatrixMultiplication matrixMultiplication = new DenseMatrixMultiplication();
+     MatrixMultiplication matrixMultiplication = new BlockMatrixMultiplication();
 
     @Setup
     public void setup() {
