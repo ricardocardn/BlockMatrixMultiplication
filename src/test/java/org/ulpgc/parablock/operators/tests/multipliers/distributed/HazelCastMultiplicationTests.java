@@ -1,10 +1,12 @@
-package org.ulpgc.parablock.operators.multipliers.distributed;
+package org.ulpgc.parablock.operators.tests.multipliers.distributed;
 
 import org.testng.annotations.Test;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.multipliers.BlockMatrixMultiplication;
 import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.distributed.DistributeMultiplicationClient;
+import org.ulpgc.parablock.operators.multipliers.distributed.DistributedMultiplicationOrchestrator;
 
 import java.util.Random;
 

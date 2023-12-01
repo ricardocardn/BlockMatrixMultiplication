@@ -1,9 +1,10 @@
-package org.ulpgc.parablock.operators.multipliers;
+package org.ulpgc.parablock.operators.tests.multipliers;
 
 import org.testng.annotations.Test;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.operators.transformers;
+package org.ulpgc.parablock.operators.tests.transformers;
 
 import org.testng.annotations.Test;
 import org.ulpgc.parablock.builders.BlockMatrixBuilder;
@@ -7,6 +7,8 @@ import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.matrix.BlockMatrix;
 import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.matrix.DenseMatrix;
+import org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix;
+import org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix;
 
 import java.util.Random;
 
