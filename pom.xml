@@ -37,6 +37,12 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jcuda</groupId>
+            <artifactId>jcublas</artifactId>
+            <version>12.0.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

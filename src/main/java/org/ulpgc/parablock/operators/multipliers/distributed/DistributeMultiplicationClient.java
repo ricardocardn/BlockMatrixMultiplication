@@ -1,7 +1,6 @@
 package org.ulpgc.parablock.operators.multipliers.distributed;
 
 import com.google.gson.Gson;
-import com.hazelcast.client.ClientService;
 import com.hazelcast.collection.IList;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;

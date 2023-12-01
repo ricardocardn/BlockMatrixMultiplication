@@ -23,10 +23,11 @@ public class Transform2BlockMatrix implements MatrixTransformer {
     private BlockMatrix transformFromDense(Matrix matrix) {
         BLOCK_SIZE = Math.min(Runtime.getRuntime().availableProcessors(), matrix.size());
         DenseMatrix denseMatrix = (DenseMatrix) matrix;
-        BlockMatrixBuilder matrixBuilder = new BlockMatrixBuilder(denseMatrix.size()/BLOCK_SIZE);
+        int size = (int) Math.ceil(denseMatrix.size()/ (double) BLOCK_SIZE);
+        BlockMatrixBuilder matrixBuilder = new BlockMatrixBuilder(size);
 
-        for (int ii = 0; ii < denseMatrix.size()/BLOCK_SIZE; ii++)
-            for (int jj = 0; jj < denseMatrix.size()/BLOCK_SIZE; jj++)
+        for (int ii = 0; ii < size; ii++)
+            for (int jj = 0; jj < size; jj++)
                 matrixBuilder.set(
                         new Coordinate(ii, jj),
                         getBlock(denseMatrix, ii, jj)
@@ -39,10 +40,17 @@ public class Transform2BlockMatrix implements MatrixTransformer {
         DenseMatrixBuilder blockBuilder = new DenseMatrixBuilder(BLOCK_SIZE);
         for (int i = 0; i < BLOCK_SIZE; i++) {
             for (int j = 0; j < BLOCK_SIZE; j++) {
-                blockBuilder.set(
-                        new Coordinate(i, j),
-                        denseMatrix.get(ii*BLOCK_SIZE + i, jj*BLOCK_SIZE + j)
-                );
+                try {
+                    blockBuilder.set(
+                            new Coordinate(i, j),
+                            denseMatrix.get(ii * BLOCK_SIZE + i, jj * BLOCK_SIZE + j)
+                    );
+                } catch (Exception e) {
+                    blockBuilder.set(
+                            new Coordinate(i, j),
+                            0
+                    );
+                }
             }
         }
 

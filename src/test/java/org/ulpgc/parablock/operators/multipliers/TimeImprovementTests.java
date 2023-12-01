@@ -9,7 +9,7 @@ import org.ulpgc.parablock.operators.MatrixMultiplication;
 
 import java.util.Random;
 
-public class MultiplicationTests {
+public class TimeImprovementTests {
     private final static int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final static int SIZE = AVAILABLE_PROCESSORS;
     private final static int BLOCK_SIZE = 2048/AVAILABLE_PROCESSORS;

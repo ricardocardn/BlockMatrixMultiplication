@@ -22,6 +22,10 @@ public class DenseMatrix implements org.ulpgc.parablock.matrix.Matrix {
         return matrix[i][j];
     }
 
+    public double[][] matrix() {
+        return matrix;
+    }
+
     public DenseMatrix deepCopy() {
         double[][] copiedMatrix = Arrays.stream(matrix)
                 .map(row -> Arrays.copyOf(row, row.length))

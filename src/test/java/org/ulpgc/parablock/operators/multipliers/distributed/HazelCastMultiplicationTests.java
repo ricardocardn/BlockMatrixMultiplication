@@ -1,20 +1,32 @@
 package org.ulpgc.parablock.operators.multipliers.distributed;
 
+import org.testng.annotations.Test;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
+import org.ulpgc.parablock.operators.multipliers.BlockMatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
 
 import java.util.Random;
 
-public class DistributedMultiplicationTests {
-    public static void main(String[] args) {
+import static org.testng.AssertJUnit.assertEquals;
+
+public class HazelCastMultiplicationTests {
+
+    @Test
+    public void multiplicationTests() {
         DenseMatrix matrixA = buildDenseMatrix(128);
         DenseMatrix matrixB = buildDenseMatrix(128);
+
+        DenseMatrixMultiplication denseMultiplier = new DenseMatrixMultiplication();
+        Matrix standardResult = denseMultiplier.multiply(matrixA, matrixB);
 
         DistributeMultiplicationClient client = new DistributeMultiplicationClient();
         client.start();
 
         DistributedMultiplicationOrchestrator orchestrator = new DistributedMultiplicationOrchestrator();
         Matrix result = orchestrator.multiply(matrixA, matrixB);
+
+        assertEquals(standardResult, result);
     }
 
     private static DenseMatrix buildDenseMatrix(int size) {
