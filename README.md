@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/logo.png" alt="Project Logo" width="40%"/>
+  <img src="images/logo.png" alt="Project Logo" width="100%"/>
 </div>
 
 <h1 align="center">Parallel Tile Matrix Multiplication</h1>
