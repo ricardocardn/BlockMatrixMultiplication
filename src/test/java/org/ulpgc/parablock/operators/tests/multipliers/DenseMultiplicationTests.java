@@ -11,13 +11,15 @@ import java.util.Random;
 import static junit.framework.Assert.assertEquals;
 
 public class DenseMultiplicationTests {
-    private static int SIZE = 8;
+    private static int SIZE = 10000;
 
     @Test
     public void multiplyTest() {
         DenseMatrix matrixA = buildDenseMatrix();
         DenseMatrix matrixB = buildDenseMatrix();
         DenseMatrix matrixC = buildDenseMatrix();
+
+        System.out.println("Starting");
 
         MatrixMultiplication denseMultiplier = new DenseMatrixMultiplication();
         Matrix AB = denseMultiplier.multiply(matrixA, matrixB);

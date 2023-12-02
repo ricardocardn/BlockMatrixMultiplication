@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.operators.benches.multipliers;
+package org.ulpgc.parablock.operators.benches;
 
 import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;
@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 @Fork(2)
 @State(Scope.Benchmark)
 public class BlockMatrixMultiplicationBenchmark {
-    @Param({"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
+    @Param({"32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
     public int n;
     Matrix matrixA;
-     MatrixMultiplication matrixMultiplication = new BlockMatrixMultiplication();
+    MatrixMultiplication matrixMultiplication = new BlockMatrixMultiplication();
 
     @Setup
     public void setup() {

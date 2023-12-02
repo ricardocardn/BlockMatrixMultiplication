@@ -16,7 +16,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class ParallelBlockMultiplicationTests {
     private final static int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final static int SIZE = AVAILABLE_PROCESSORS;
-    private final static int BLOCK_SIZE = 2048/AVAILABLE_PROCESSORS;
+    private final static int BLOCK_SIZE = 4096/AVAILABLE_PROCESSORS;
     private final MatrixMultiplication blockMatrixMultiplication = new ParallelBlockMatrixMultiplication();
     private final Matrix matrixA = buildBlockMatrix();
     private final Matrix matrixB = buildBlockMatrix();
@@ -24,6 +24,7 @@ public class ParallelBlockMultiplicationTests {
 
     @Test
     public void blockMultiplicationTest() {
+        System.out.println(AVAILABLE_PROCESSORS);
         Matrix AB = blockMatrixMultiplication.multiply(matrixA, matrixB);
         Matrix AB_C = blockMatrixMultiplication.multiply(AB, matrixC);
 

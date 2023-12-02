@@ -1,10 +1,9 @@
-package org.ulpgc.parablock.operators.benches.multipliers;
+package org.ulpgc.parablock.operators.benches;
 
 import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
-import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
 import org.ulpgc.parablock.operators.multipliers.ParallelBlockMatrixMultiplication;
 
 import java.util.Random;
@@ -18,7 +17,7 @@ public class ParallelBlockMatrixMultiplicationBenchmark {
     @Param({"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
     public int n;
     Matrix matrixA;
-     MatrixMultiplication matrixMultiplication = new ParallelBlockMatrixMultiplication();
+    MatrixMultiplication matrixMultiplication = new ParallelBlockMatrixMultiplication();
 
     @Setup
     public void setup() {

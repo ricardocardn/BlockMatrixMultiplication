@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.operators.benches.multipliers;
+package org.ulpgc.parablock.operators.benches;
 
 import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;
@@ -17,7 +17,7 @@ public class DenseMatrixMultiplicationBenchmark {
     @Param({"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
     public int n;
     Matrix matrixA;
-     MatrixMultiplication matrixMultiplication = new DenseMatrixMultiplication();
+    MatrixMultiplication matrixMultiplication = new DenseMatrixMultiplication();
 
     @Setup
     public void setup() {
