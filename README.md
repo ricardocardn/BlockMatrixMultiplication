@@ -6,6 +6,8 @@
 
 This Java library provides implementations for matrix operations in parallel and distributed computing environments, making use of java executor services and even HazelCast, to deploy the work in a cluster of machines. You'll find below some explanations for the different components of the library, starting with the model definition, where matrices themselves are defined.
 
+(*) For efficiency aspects, please check [Benchmarks of Parallel tile Multiplication](Benchmarks_of_Parallel_tile_Multiplication.pdf)
+
 ## Matrices
 
 ### Dense Matrix
