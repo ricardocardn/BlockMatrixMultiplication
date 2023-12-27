@@ -1,6 +1,12 @@
-# <b>ParaBlock</b>: Parallel Tile Matrix Multiplication
+<div align="center">
+  <img src="images/logo.png" alt="Project Logo" width="100%"/>
+</div>
+
+<h1 align="center">Parallel Tile Matrix Multiplication</h1>
 
 This Java library provides implementations for matrix operations in parallel and distributed computing environments, making use of java executor services and even HazelCast, to deploy the work in a cluster of machines. You'll find below some explanations for the different components of the library, starting with the model definition, where matrices themselves are defined.
+
+(*) For efficiency aspects, please check [Benchmarks of Parallel tile Multiplication](Benchmarks_of_Parallel_tile_Multiplication.pdf)
 
 ## Matrices
 
