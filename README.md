@@ -2,9 +2,9 @@
   <img src="images/logo.png" alt="Project Logo" width="100%"/>
 </div>
 
-<h1 align="center">Parallel Tile Matrix Multiplication</h1>
+<h1 align="center">Fast Matrix Multiplication Solutions</h1>
 
-This Java library provides implementations for matrix operations in parallel and distributed computing environments, making use of java executor services and even HazelCast, to deploy the work in a cluster of machines. You'll find below some explanations for the different components of the library, starting with the model definition, where matrices themselves are defined.
+This Java library provides implementations for matrix operations in parallel and distributed computing environments, making use of java executor services, MapReduce, and HazelCast, to deploy the work in a cluster of machines. You'll find below some explanations for the different components of the library, starting with the model definition, where matrices themselves are defined.
 
 (*) For efficiency aspects, please check [Benchmarks of Parallel tile Multiplication](Benchmarks_of_Parallel_tile_Multiplication.pdf)
 
@@ -128,4 +128,22 @@ Matrix result = orchestrator.multiply(matrixA, matrixB);
 
 These two could co-exists in the same machine, even though it will show an under-performance when compared to simple parallelism. However, you should make sure that clients are running before the orchestrator. Otherwise, the orchestrator will take the whole work.  
 
+## MapReduce Matrix Multiplication
 
+MapReduce multiplication has also been included in this library as a way for multiplying matrices in a cluster of computers. Here you have an example of use:
+
+```java
+DenseMatrix matrixA = buildDenseMatrix(128);
+DenseMatrix matrixB = buildDenseMatrix(128);
+
+MapReduceMatrixMultiplication multiplier = new MapReduceMatrixMultiplication();
+multiplier.multiply(matrixA, matrixB);
+```
+
+To be able to run this code properly, make sure you have defined the following environment variables, according to your hadoop installation.
+
+```
+hadoop.home.dir=C:\hadoop-3.2.2
+HADOOP_HOME=C:\hadoop-3.2.2
+Path=C:\hadoop-3.2.2\bin
+```
