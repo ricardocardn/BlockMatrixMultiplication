@@ -1,0 +1,4 @@
+package org.ulpgc.parablock.operators.benches.jmh_generated;
+public class ParallelBlockMatrixMultiplicationBenchmark_jmhType extends ParallelBlockMatrixMultiplicationBenchmark_jmhType_B3 {
+}
+
