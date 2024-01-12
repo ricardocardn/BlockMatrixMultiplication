@@ -4,7 +4,7 @@ import org.openjdk.jmh.annotations.*;
 import org.ulpgc.parablock.matrix.DenseMatrix;
 import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
-import org.ulpgc.parablock.operators.multipliers.ParallelBlockMatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.parallel.ParallelBlockMatrixMultiplication;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

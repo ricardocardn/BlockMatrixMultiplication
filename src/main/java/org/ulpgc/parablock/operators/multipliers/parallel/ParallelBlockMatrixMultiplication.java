@@ -1,4 +1,4 @@
-package org.ulpgc.parablock.operators.multipliers;
+package org.ulpgc.parablock.operators.multipliers.parallel;
 
 import org.ulpgc.parablock.builders.BlockMatrixBuilder;
 import org.ulpgc.parablock.builders.MatrixBuilder;
@@ -9,6 +9,7 @@ import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.operators.MatrixAddition;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
 import org.ulpgc.parablock.operators.adders.DenseMatrixAddition;
+import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
 import org.ulpgc.parablock.operators.transformers.Transform2BlockMatrix;
 
 import java.util.concurrent.ExecutorService;

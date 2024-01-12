@@ -6,31 +6,41 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.ulpgc.parablock.builders.DenseMatrixBuilder;
-import org.ulpgc.parablock.loaders.MapReduceMatrixLoader;
-import org.ulpgc.parablock.loaders.MatrixLoader;
 import org.ulpgc.parablock.matrix.Matrix;
-import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.operators.multipliers.mapreduce.mappers.TextMapper;
 import org.ulpgc.parablock.operators.multipliers.mapreduce.reducers.TextReducer;
+import org.ulpgc.parablock.savers.MapReduceMatrixSaver;
+import org.ulpgc.parablock.savers.MatrixSaver;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MapReduceMatrixMultiplication {
-    private static final MatrixLoader loader = new MapReduceMatrixLoader();
-
+    private final String inputPath = "src/main/resources/matrixfiles/inputfile.txt";
+    private final String outputPath = "src/main/resources/matrixfiles/outputfile.txt";
     public void multiply(Matrix matrixA, Matrix matrixB) throws IOException, InterruptedException, ClassNotFoundException {
         Configuration config = new Configuration();
         config.set("size", Integer.toString(matrixA.size()));
         Job job = getJob(config);
 
-        loader.store(matrixA, "src/main/resources/matrixfiles/inputfile.txt", "A");
-        loader.store(matrixB, "src/main/resources/matrixfiles/inputfile.txt", "B");
+        removeFilesIfExist();
+        saveMatricesToInput(matrixA, matrixB);
 
-        FileInputFormat.addInputPath(job, new Path("src/main/resources/matrixfiles/inputfile.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("src/main/resources/matrixfiles/outputfile.txt"));
+        FileInputFormat.addInputPath(job, new Path(inputPath));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+        job.waitForCompletion(true);
+    }
+
+    private void saveMatricesToInput(Matrix matrixA, Matrix matrixB) {
+        MatrixSaver saver = new MapReduceMatrixSaver();
+        saver.store(matrixA, inputPath, "A");
+        saver.store(matrixB, inputPath, "B");
+    }
+
+    private void removeFilesIfExist() {
+        new File(inputPath).delete();
+        new File(outputPath).delete();
     }
 
     private Job getJob(Configuration config) throws IOException {

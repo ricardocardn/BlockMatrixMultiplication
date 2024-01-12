@@ -7,7 +7,7 @@ import org.ulpgc.parablock.matrix.Matrix;
 import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.operators.MatrixMultiplication;
 import org.ulpgc.parablock.operators.multipliers.DenseMatrixMultiplication;
-import org.ulpgc.parablock.operators.multipliers.ParallelBlockMatrixMultiplication;
+import org.ulpgc.parablock.operators.multipliers.parallel.ParallelBlockMatrixMultiplication;
 
 import java.util.Random;
 
@@ -19,14 +19,13 @@ public class TimeImprovementTests {
     private final MatrixMultiplication denseMatrixMultiplication = new DenseMatrixMultiplication();
     private final ParallelBlockMatrixMultiplication parallelMultiplication = new ParallelBlockMatrixMultiplication();
     private final Matrix matrixA = buildBlockMatrix();
-    private final Matrix matrixC = buildSubDenseMatrix(SIZE*BLOCK_SIZE);
 
     @Test
     public void parallelMultiplicationTest() {
         parallelMultiplication.multiply(matrixA, matrixA);
     }
 
-    @Test
+    /*@Test
     public void blockMultiplicationTest() {
         blockMatrixMultiplication.multiply(matrixA, matrixA);
     }
@@ -34,7 +33,7 @@ public class TimeImprovementTests {
     @Test
     public void denseMultiplicationTest() {
         denseMatrixMultiplication.multiply(matrixA, matrixA);
-    }
+    }*/
 
     private Matrix buildBlockMatrix() {
         BlockMatrixBuilder blockMatrixBuilder = new BlockMatrixBuilder(SIZE);

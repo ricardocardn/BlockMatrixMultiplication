@@ -6,50 +6,50 @@ import org.ulpgc.parablock.matrix.coordinates.Coordinate;
 import org.ulpgc.parablock.operators.MatrixTransformer;
 import org.ulpgc.parablock.operators.transformers.Transform2DenseMatrix;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MapReduceMatrixLoader implements MatrixLoader {
-    private final MatrixTransformer transformer;
+    private final int size;
 
-    public MapReduceMatrixLoader() {
-        this.transformer = new Transform2DenseMatrix();
+    public MapReduceMatrixLoader(int size) {
+        this.size = size;
     }
 
     @Override
     public Matrix load(String file) {
-        return null;
-    }
-
-    @Override
-    public void store(Matrix matrix, String file, String name) {
-        DenseMatrix denseMatrix = (DenseMatrix) transformer.execute(matrix);
-
-        int n = denseMatrix.size();
-
-        for (int i=0; i<n; i++)
-            for (int j=0; j<n; j++)
-                saveToFile(new Coordinate(i,j),
-                        denseMatrix.get(i,j),
-                        file,
-                        name);
-
-    }
-
-    public void saveToFile(Coordinate coordinate, double value, String fileName, String name) {
         try {
-            FileWriter fileWriter = new FileWriter(fileName, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            double[][] matrixArray = new double[size][size];
 
-            bufferedWriter.write(String.format(
-                    "%s,%d,%d,%s\n", name, coordinate.i, coordinate.j, Double.toString(value)
-            ));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            bufferedWriter.close();
-            fileWriter.close();
+            Pattern pattern = Pattern.compile("\\(([0-9]+),([0-9]+)\\)\\s+([0-9.]+)");
+            Matcher matcher;
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                matcher = pattern.matcher(line);
+                if (matcher.find()) {
+                    int i = Integer.parseInt(matcher.group(1));
+                    int j = Integer.parseInt(matcher.group(2));
+                    double value = Double.parseDouble(matcher.group(3));
+                    matrixArray[i][j] = value;
+                }
+            }
+
+            reader.close();
+
+            DenseMatrix loadedMatrix = new DenseMatrix(size, matrixArray);
+            return loadedMatrix;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 }
