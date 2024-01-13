@@ -33,6 +33,20 @@ public class MapReduceMatrixMultiplication {
         FileInputFormat.addInputPath(job, new Path(inputPath));
         FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
+        job.waitForCompletion(true);
+        long end = System.currentTimeMillis();
+        System.out.println("Time matrix multiplication took (ms): " + (end - start));
+    }
+
+    public void multiply(int size) throws IOException, InterruptedException, ClassNotFoundException {
+        Configuration config = new Configuration();
+        config.set("size", String.valueOf(size));
+        Job job = getJob(config);
+
+        long start = System.currentTimeMillis();
+
+        FileInputFormat.addInputPath(job, new Path(inputPath));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
         job.waitForCompletion(true);
         long end = System.currentTimeMillis();
