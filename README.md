@@ -143,6 +143,15 @@ MatrixLoader loader = new MapReduceMatrixLoader(size);
 Matrix mapReduceResult = loader.load("src/main/resources/matrixfiles/outputfile.txt/part-r-00000");
 ```
 
+Or just define the matrices in the input file, located in resources and called input.txt, if having memory problems, and execute the next:
+
+```java
+int size = ...
+String inputFile = ...
+MapReduceMatrixMultiplication multiplier = new MapReduceMatrixMultiplication();
+multiplier.multiply(size, inputFile);
+```
+
 To be able to run this code properly, make sure you have defined the following environment variables, according to your hadoop installation.
 
 ```
