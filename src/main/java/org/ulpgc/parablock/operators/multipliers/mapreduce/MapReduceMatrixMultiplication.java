@@ -38,7 +38,7 @@ public class MapReduceMatrixMultiplication {
         System.out.println("Time matrix multiplication took (ms): " + (end - start));
     }
 
-    public void multiply(int size) throws IOException, InterruptedException, ClassNotFoundException {
+    public void multiply(int size, String inputPath) throws IOException, InterruptedException, ClassNotFoundException {
         Configuration config = new Configuration();
         config.set("size", String.valueOf(size));
         Job job = getJob(config);
