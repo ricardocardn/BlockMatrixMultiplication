@@ -133,11 +133,14 @@ These two could co-exists in the same machine, even though it will show an under
 MapReduce multiplication has also been included in this library as a way for multiplying matrices in a cluster of computers. Here you have an example of use:
 
 ```java
-DenseMatrix matrixA = buildDenseMatrix(128);
-DenseMatrix matrixB = buildDenseMatrix(128);
+DenseMatrix matrixA = buildDenseMatrix(size);
+DenseMatrix matrixB = buildDenseMatrix(size);
 
 MapReduceMatrixMultiplication multiplier = new MapReduceMatrixMultiplication();
 multiplier.multiply(matrixA, matrixB);
+
+MatrixLoader loader = new MapReduceMatrixLoader(size);
+Matrix mapReduceResult = loader.load("src/main/resources/matrixfiles/outputfile.txt/part-r-00000");
 ```
 
 To be able to run this code properly, make sure you have defined the following environment variables, according to your hadoop installation.
